@@ -1,0 +1,41 @@
+{% set polyfillObjects = [
+    'Promise', 'fetch', 'Object.values',
+    'Array.from', 'Symbol', 'Array.prototype.fill',
+    'Array.prototype.find', 'Array.prototype.findIndex'
+] %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coronling | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ assetPath('css/app.css') }}">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body style="{% block bodyStyle %}{% endblock %}" class="row flex-column {% block bodyCss %}{% endblock %}">
+<div class="nav {% block navCss %}{% endblock %}">
+    <a href="{{ path('default') }}" class="nav__item nav__logo font-secondary fs-md">
+        <img data-src="{{ assetPath('../logo.svg') }}" loading="lazy" alt="Coronling" height="40">
+        Coronling
+    </a>
+    {% if app.user is same as(null) %}
+        <a href="{{ path('app_register') }}" class="nav__item ml-auto">Sign up</a>
+        <a href="{{ path('app_login') }}" class="nav__item">Sign in</a>
+    {% else %}
+        {#<a href="{{ path('cheat_sheets') }}" class="nav__item ml-auto fs-md">Cheat Sheets</a>#}
+        <a href="{{ path('my_profile') }}" class="nav__item ml-auto nav__nickname">
+            <span class="text-truncate">{{ app.user.nickname }}</span>
+        </a>
+        <a href="{{ path('app_logout') }}" class="nav__item">
+            <img src="{{ imagePath('logout.svg') }}" alt="Log out" title="Log out" width="16">
+        </a>
+    {% endif %}
+</div>
+
+<footer class="">
+
+</footer>
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>
